@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Weather App</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        input { padding: 8px; width: 200px; }
+        button { padding: 8px 12px; }
+        .weather-container { margin-top: 20px; }
+        .forecast-day { border: 1px solid #ddd; padding: 10px; margin: 5px; display: inline-block; width: 130px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<h1>Weather App</h1>
+
+<input type="text" id="cityInput" placeholder="Enter city name" />
+<button onclick="fetchWeather()">Get Weather</button>
+
+<div class="weather-container" id="currentWeather"></div>
+
+<h2>7-Day Forecast</h2>
+<div class="weather-container" id="forecast"></div>
+
+<script>
+async function fetchWeather() {
+    const city = document.getElementById('cityInput').value.trim();
+    if (!city) {
+        alert('Please enter a city');
+        return;
+    }
+
+    // Fetch current weather
+    const currentRes = await fetch(`/api/weather/current?city=${encodeURIComponent(city)}`);
+    if (!currentRes.ok) {
+        alert('City not found or API error');
+        return;
+    }
+    const currentData = await currentRes.json();
+
+    // Access current weather properties as per weatherapi.com model:
+    const location = currentData.location;
+    const current = currentData.current;
+    const condition = current.condition;
+
+    document.getElementById('currentWeather').innerHTML = `
+        <h2>Current Weather in ${location.name}, ${location.region}, ${location.country}</h2>
+        <p>Temperature: ${current.temp_c} °C</p>
+        <p>Condition: ${condition.text}</p>
+        <img src="https:${condition.icon}" alt="weather icon" />
+        <p>Humidity: ${current.humidity}%</p>
+        <p>Pressure: ${current.pressure_mb} hPa</p>
+        <p>Wind Speed: ${current.wind_kph} kph</p>
+    `;
+
+    // Fetch 7-day forecast
+    const forecastRes = await fetch(`/api/weather/7daysforecast?city=${encodeURIComponent(city)}`);
+    if (!forecastRes.ok) {
+        document.getElementById('forecast').innerHTML = '<p>Could not load forecast</p>';
+        return;
+    }
+    const forecastData = await forecastRes.json();
+
+    let forecastHtml = '';
+    forecastData.forEach(day => {
+        const dayCondition = day.day.condition;
+        forecastHtml += `
+            <div class="forecast-day">
+                <strong>${day.date}</strong><br />
+                <img src="https:${dayCondition.icon}" alt="icon" /><br />
+                Temp: ${day.day.avgtemp_c} °C<br />
+                ${dayCondition.text}
+            </div>
+        `;
+    });
+
+    document.getElementById('forecast').innerHTML = forecastHtml;
+}
+
+</script>
+
+</body>
+</html>

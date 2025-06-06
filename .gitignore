@@ -1,0 +1,27 @@
+# Ignore build and IDE files
+/target/
+/build/
+*.class
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA
+*.iml
+.idea/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# Environment variables and secrets
+.env
+*.properties
