@@ -1,0 +1,478 @@
+/* Outer Container for right container */
+.right-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-tertiary);
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: background 0.3s ease;
+}
+
+/* CSS For nav bar */
+.right-container-nav-bar{
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    background: var(--bg-tertiary);
+    padding: 0 30px;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+/* CSS for nav bar tabs names */
+.nav-bar-tabs{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+
+/* CSS for Today tab and for hover and for active */
+.today{
+    margin-right: 15px;
+    color: var(--text-secondary);
+    padding: 8px 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.today:hover{
+    color: var(--text-primary);
+}
+.today-active{
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* CSS for Week tab and for hover and for active */
+.week{
+    color: var(--text-secondary);
+    padding: 8px 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.week:hover{
+    color: var(--text-primary);
+}
+.week-active{
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* CSS for on click underline*/
+.underline{
+    width: 42px;
+    height: 2px;
+    background-color: var(--text-primary);
+    margin-top: 1.8rem;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+.underline-today{
+    transform: translate3d(-220%,0,0);
+    transition: 100ms;
+}
+.underline-week{
+    transform: translate3d(-90%,0,0);
+    transition: 100ms;
+}
+
+/* CSS For nav bar metrics */
+.nav-bar-metric{
+    display: flex;
+    flex-direction: row;
+    margin-right: 30px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+/* CSS properties for celsius and fahrenheit tab along with on hover and active */
+.celsius{
+    padding: 8px 12px;
+    color: var(--text-primary);
+    background: var(--card-bg);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    border-radius: 6px;
+}
+.fahrenheit{
+    padding: 8px 12px;
+    color: var(--text-primary);
+    background: var(--card-bg);
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.celsius:hover{
+    background: var(--accent-color);
+    color: white;
+}
+.fahrenheit:hover{
+    background: var(--accent-color);
+    color: white;
+}
+
+.celsius-active{
+    color: white;
+    background: var(--accent-color);
+}
+.fahrenheit-active{
+    color: white;
+    background: var(--accent-color);
+}
+
+/* Theme Toggle Button Styles */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    min-width: 80px;
+    justify-content: center;
+}
+
+.theme-toggle:hover {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.theme-icon {
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.theme-label {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* CSS for profile image */
+.profile-image img{
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.profile-image img:hover {
+    border-color: var(--accent-color);
+}
+
+.right-container-data-box{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+.right-container-week-cards{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card{
+    height: 180px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    position: relative;
+    color: var(--text-primary);
+}
+
+.card:hover{ 
+    transform: translateY(-8px) scale(1.02); 
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.25);
+}
+.card-day{
+    margin: 6px;
+    margin-top: 8px;
+    color: var(--text-secondary);
+}
+.card-temp-img img{
+    width: 60px;
+    height: 60px;
+}
+.card-temp-value{
+    margin: 5px;
+    color: var(--text-primary);
+}
+.card-date{
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+.temp-max{ 
+    font-weight: 600; 
+    color: var(--text-primary);
+}
+.temp-min{ 
+    color: var(--text-secondary); 
+}
+.temp-divider{ 
+    color: var(--text-muted); 
+    margin: 0 2px; 
+}
+
+.right-container-today-cards{
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.right-container-todays-highlight{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.right-container-todays-highlight-title{
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+/* grid container for 3x2 layout */
+.todays-highlight-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    height: auto;
+}
+.right-container-todays-highlight-card{
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    border-radius: 16px;
+    height: 160px;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    padding: 16px;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.right-container-todays-highlight-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(102, 126, 234, 0.25);
+}
+
+.right-container-todays-highlight-card-title{
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gauge{
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    color: var(--accent-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+.gauge__body {
+    width: 100%;
+    height: 0;
+    padding-bottom: 50%;
+    background: var(--bg-tertiary);
+    position: relative;
+    border-top-left-radius: 100% 200%;
+    border-top-right-radius: 100% 200%;
+    overflow: hidden;
+    margin-top: 1rem;
+  }
+  .gauge__fill {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: inherit;
+    height: 100%;
+    background: #ffbf5e;
+    transform-origin: center top;
+    transform: rotate(0.25turn);
+    transition: transform 0.2s ease-out;
+  }
+  .gauge__cover{
+    width: 75%;
+    height: 150%;
+    background: var(--card-bg);
+    border-radius: 50%;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+  
+    /* Text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 25%;
+    box-sizing: border-box;
+    color: var(--card-bg);
+  }
+
+  .right-container-todays-highlight-value{
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .wind-status-value{
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text-primary);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+  .unit{
+    font-size: 16px;
+  }
+  .wind-status-logo{
+    flex: 1;
+    align-self: self-start;
+    margin-left: 30px;
+  }
+  .wind-status-logo img{
+    width: 30px;
+    height: 30px;
+  }
+  .sunrise-sunset-value {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 6px;
+    flex: 1;
+    height: 60px;
+  }
+
+  
+  .sunrise, .sunset {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .sunrise{
+    margin-top: 17px;
+  }
+
+  .sunrise-time, .sunset-time {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+
+  .sunrise-emoji, .sunset-emoji {
+    font-size: 14px;
+  }
+  .sunrise-img img{
+    width: 30px;
+    height: 30px;
+  }
+  .sunset{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+  }
+  .sunset-img img{
+    width: 30px;
+    height: 30px;
+  }
+  .sunset-time{
+    flex: 4;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .status-indicator {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding: 4px 8px;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 20px;
+}
+
+/* responsive columns for highlight grid */
+@media (max-width: 1024px){
+  .todays-highlight-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px){
+  .todays-highlight-grid{ grid-template-columns: 1fr; }
+  .right-container-todays-highlight-title{ margin-bottom: 10px; }
+}

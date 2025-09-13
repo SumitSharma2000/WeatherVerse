@@ -1,62 +1,81 @@
 package com.sumitsharma.weatherapp.weather_service.service;
 
-import java.util.List;
-
+import com.sumitsharma.weatherapp.weather_service.model.*;
+import com.sumitsharma.weatherapp.weather_service.util.WeatherApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import com.sumitsharma.weatherapp.weather_service.model.CurrentWeatherResponse;
-import com.sumitsharma.weatherapp.weather_service.model.ForecastDayResponse;
-import com.sumitsharma.weatherapp.weather_service.model.ForecastResponse;
-import com.sumitsharma.weatherapp.weather_service.model.WeatherData;
-import com.sumitsharma.weatherapp.weather_service.util.WeatherApiClient;
+import java.util.List;
 
 @Service
 public class WeatherService {
 
-	 @Autowired
-	 private WeatherApiClient weatherApiClient;
-	 
-	 private final RestTemplate restTemplate = new RestTemplate(); // 
-	 
-	 public CurrentWeatherResponse getWeatherByCity(String city) {
-	   return weatherApiClient.getCurrentWeather(city);
-	    }
+    @Autowired
+    private WeatherApiClient weatherApiClient;
 
-	 public List<ForecastDayResponse> get7DaysForecastByCity(String city) {
-	     ForecastResponse forecastResponse = weatherApiClient.get7DaysForecast(city);
-	        if (forecastResponse == null || forecastResponse.getForecast() == null) {
-	            return List.of();
-	        }
-	        return forecastResponse.getForecast().getForecastday();
-	    }
+    @Autowired
+    private PexelsService pexelsService;
 
-	 
-	 public WeatherData toWeatherData(CurrentWeatherResponse response) {
-	        return new WeatherData(
-	            response.getLocation().getName(),
-	            response.getCurrent().getTemp_c(),
-	            response.getCurrent().getCondition().getText(),
-	            response.getCurrent().getHumidity(),
-	            response.getCurrent().getWind_kph()
-	        );
-	    }
-	 
-	 public String getRecommendation(String city) {
-	        CurrentWeatherResponse response = getWeatherByCity(city);
+    /** ✅ Weather by city */
+    public WeatherData getWeatherData(String city) {
+        CurrentWeatherResponse current = weatherApiClient.getCurrentWeather(city);
+        ForecastResponse forecast = weatherApiClient.get7DaysForecast(city);
 
-	        // convert to WeatherData DTO
-	        WeatherData data = toWeatherData(response);
+        return buildWeatherData(current, forecast);
+    }
 
-	        // Call recommendation-service
-	        String recommendation = restTemplate.postForObject(
-	            "http://localhost:8081/api/recommendation/generate",  // adjust if using gateway/service discovery
-	            data,
-	            String.class
-	        );
+    /** ✅ Weather by coordinates */
+    public WeatherData getWeatherDataByCoords(Double lat, Double lon) {
+        CurrentWeatherResponse current = weatherApiClient.getCurrentWeatherByCoords(lat, lon);
+        ForecastResponse forecast = weatherApiClient.get7DaysForecastByCoords(lat, lon);
 
-	        return recommendation;
-	    }
+        return buildWeatherData(current, forecast);
+    }
+
+    /** ✅ 7-day forecast by city */
+    public List<ForecastDayResponse> get7DaysForecast(String city) {
+        ForecastResponse forecast = weatherApiClient.get7DaysForecast(city);
+        return forecast.getForecast().getForecastday();
+    }
+
+    /** ✅ 7-day forecast by coordinates */
+    public List<ForecastDayResponse> get7DaysForecastByCoords(Double lat, Double lon) {
+        ForecastResponse forecast = weatherApiClient.get7DaysForecastByCoords(lat, lon);
+        return forecast.getForecast().getForecastday();
+    }
+
+    /** 🔑 Utility: Map API response into simplified WeatherData */
+    private WeatherData buildWeatherData(CurrentWeatherResponse current, ForecastResponse forecast) {
+        ForecastDayResponse today = forecast.getForecast().getForecastday().get(0);
+
+        double aqi = 0;
+    if (current.getCurrent().getAir_quality() != null &&
+        current.getCurrent().getAir_quality().containsKey("pm2_5")) {
+        Object pm25 = current.getCurrent().getAir_quality().get("pm2_5");
+        if (pm25 != null) {
+            aqi = Double.parseDouble(pm25.toString());
+        }
+    }
+
+    String city = current.getLocation().getName();
+    // Get city image from Pexels API
+    String cityImageUrl = pexelsService.getCityImageUrl(city);
+
+
+        return new WeatherData(
+                current.getLocation().getName(),
+                current.getCurrent().getTemp_c(),
+                current.getCurrent().getCondition().getText(),
+                current.getCurrent().getHumidity(),
+                current.getCurrent().getWind_kph(),
+                current.getCurrent().getUv(),
+                today.getAstro().getSunrise(),
+                today.getAstro().getSunset(),
+                current.getCurrent().getVis_km(),
+                aqi,
+                today.getDay().getDaily_chance_of_rain(),
+                current.getCurrent().getCondition().getIcon(), // ✅ Pass icon
+                cityImageUrl // ✅ add this
+        );
+    }
 }
-

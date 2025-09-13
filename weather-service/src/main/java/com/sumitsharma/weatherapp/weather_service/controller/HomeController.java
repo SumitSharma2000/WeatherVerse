@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 	@GetMapping("/")
     public String home() {
-        return "weather.html";  // static folder mein index.html hona chahiye
+        return "forward:/weather.html";
     }
 }

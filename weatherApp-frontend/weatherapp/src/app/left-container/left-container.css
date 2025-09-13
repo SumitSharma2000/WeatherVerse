@@ -1,0 +1,277 @@
+.left-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+/* CSS for left container nav bar */
+
+.left-container-nav-bar {
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: var(--card-bg);
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+.search-icon {
+  flex: 2;
+  text-align: right;
+  margin-right: 5px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.search-icon:hover {
+  background: var(--bg-tertiary);
+  color: var(--accent-color);
+}
+.search-input {
+    flex: 4;
+}
+
+.search-input input{
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text-primary);
+    background: var(--input-bg);
+    border-radius: 8px;
+    margin-right: 100px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.search-input input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.search-input input::placeholder {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.location-icon {
+    flex: 2;
+    text-align: center;
+    margin-top: -2px;
+    margin-right: 10px;
+}
+
+.location-icon {
+    flex: 2;
+    text-align: center;
+    margin-top: -2px;
+    margin-right: 10px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.location-icon fa-icon{
+    padding: 10px;
+    background: var(--bg-tertiary);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.location-icon:hover fa-icon {
+    background: var(--accent-color);
+    color: white;
+    border-color: var(--accent-color);
+}
+/* ======================================================================================== */
+/* CSS for left container data */
+
+.left-container-data-box {
+  flex: 1;
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+/* Temperature Data: Image, Value and Day-Time */
+.left-container-temp-data{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+}
+.left-container-temp-img{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.left-container-temp-img img{
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 8px 20px var(--shadow-color));
+}
+
+.left-container-temp-value{
+  font-size: 40px;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-color) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 4px 0;
+  margin-left: 28px;
+}
+
+.left-container-temp-value .alt-temp {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.left-container-temp-value sup{
+  position: relative;
+  top: -15px;
+  font-size: 28px;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.left-container-day-time{
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 16px;
+  text-align: center;
+  margin: 4px 0px;
+}
+.left-container-day-time span{
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* Location Header Styles */
+.left-container-location-header {
+  margin: 6px 0;
+  text-align: center;
+}
+
+.left-container-current-location {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.left-container-current-datetime {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  background: var(--bg-tertiary);
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-top: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.dividing-line{
+  height: 1px;
+  width: 100%;
+  background-color: var(--border-color);
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.skeleton-hero{ margin-top: 12px; }
+
+/* Temperature Details: Summary Phrase, Rain Value, Location Image and Location Details */
+.left-container-other-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.left-container-temp-summary,
+.left-container-rain-stats {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--bg-tertiary);
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+.left-container-temp-summary:hover,
+.left-container-rain-stats:hover {
+  background: var(--bg-primary);
+  border-color: var(--accent-color);
+}
+
+.left-container-temp-summary-phrase-img,
+.left-container-rain-stats-img {
+  margin-right: 12px;
+  padding: 8px;
+  background: var(--card-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+}
+.left-container-location-details{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 6px;
+}
+.left-container-location-img{
+  margin: 6px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.left-container-location-img img{
+  width: 350px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+.left-container-location-name{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+  z-index: 1;
+}

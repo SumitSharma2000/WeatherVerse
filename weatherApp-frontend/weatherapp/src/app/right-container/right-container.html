@@ -1,0 +1,109 @@
+<div class="right-container">
+    <div class="right-container-nav-bar">
+        <div class="nav-bar-tabs">
+  <div 
+    class="today" 
+    [ngClass]="{ 'today-active': activeTab === 'today' }" 
+    (click)="onTodayClick()">
+    Today
+  </div>
+  <div 
+    class="week" 
+    [ngClass]="{ 'week-active': activeTab === 'week' }" 
+    (click)="onWeekClick()">
+    Week
+  </div>
+  <div 
+    class="underline" 
+    [ngClass]="{ 'underline-today': activeTab === 'today', 'underline-week': activeTab === 'week' }">
+  </div>
+</div>
+        <div class="nav-bar-metric">
+            <div class="celsius"(click)="onCelsiusClick()" [class.celsius-active]="weatherService.unitCelsius()">°C</div>
+            <div class="fahrenheit" (click)="onFahrenheitClick()" [class.fahrenheit-active]="!weatherService.unitCelsius()">°F</div>
+            <div class="profile-image"><img src="../../assets/Profile_Image.jpg" alt="profile-image"></div>
+        </div>
+    </div>
+    <div class="right-container-data-box">
+        <div *ngIf="weatherService.loading()" class="skeleton" style="height: 140px; border-radius: 12px; margin: 0 20px 12px 20px;"></div>
+        <div *ngIf="weatherService.error()" style="margin: 0 20px 12px 20px; color: #d33; font-size: 13px;">{{weatherService.error()}}</div>
+        <div class="right-container-week-cards">
+            <div class="card" *ngFor="let card of weatherService.daily()">
+                <div class="card-day">{{card.day}}</div>
+                <div class="card-temp-img"><img [src]="card.iconUrl" alt="summaryImage"></div>
+                <div class="card-temp-value">
+                    <span class="temp-max">{{weatherService.unitCelsius() ? card.maxTempC : weatherService.toFahrenheit(card.maxTempC)}}°</span>
+                    <span class="temp-divider"> / </span>
+                    <span class="temp-min">{{weatherService.unitCelsius() ? card.minTempC : weatherService.toFahrenheit(card.minTempC)}}°</span>
+                </div>
+                <div class="card-date">{{card.date}}</div>
+            </div>
+        </div>
+        <div class="right-container-today-cards">
+            <div class="card" *ngFor="let card of weatherService.hourly()">
+                <div class="card-day">{{card.time}}</div>
+                <div class="card-temp-img"><img [src]="card.iconUrl" alt="summaryImage"></div>
+                <div class="card-temp-value">{{weatherService.unitCelsius() ? card.temperatureC : weatherService.toFahrenheit(card.temperatureC) }}{{weatherService.unitCelsius() ? "°C" : "°F" }}</div>
+            </div>
+        </div>
+        <div class="right-container-todays-highlight">
+            <div class="right-container-todays-highlight-title">Today's Highlights</div>
+            <div class="todays-highlight-grid">
+                <div class="right-container-todays-highlight-card">
+                    <div class="right-container-todays-highlight-card-title">☀️ UV Index</div>
+                    <div class="gauge">
+                        <div class="gauge__body">
+                            <div class="gauge__fill"></div>
+                            <div class="gauge__cover"></div>
+                        </div>
+                    </div>
+                    <div class="right-container-todays-highlight-value">{{weatherService.highlight()?.uvIndex ?? 'N/A'}}</div>
+                    <div class="status-indicator" *ngIf="weatherService.highlight()?.uvIndex !== null">
+                        {{getUVStatus(weatherService.highlight()?.uvIndex || 0)}}
+                    </div>
+                </div>
+                <div class="right-container-todays-highlight-card">
+                    <div class="right-container-todays-highlight-card-title">💨 Wind Status</div>
+                    <div class="wind-status-value">{{weatherService.highlight()?.windStatusKmh ?? 'N/A'}} <span class="unit" *ngIf="weatherService.highlight()?.windStatusKmh !== null">km/h</span></div>
+                    <div class="status-indicator" *ngIf="weatherService.highlight()?.windStatusKmh !== null">
+                        {{getWindStatus(weatherService.highlight()?.windStatusKmh || 0)}}
+                    </div>
+                </div>
+                <div class="right-container-todays-highlight-card">
+                    <div class="right-container-todays-highlight-card-title">🌅 Sunrise & Sunset</div>
+                    <div class="sunrise-sunset-value">
+                        <div class="sunrise">
+                            <div class="sunrise-emoji">🌅</div>
+                            <div class="sunrise-time">{{weatherService.highlight()?.sunrise ?? 'N/A'}}</div>
+                        </div>
+                        <div class="sunset">
+                            <div class="sunset-emoji">🌇</div>
+                            <div class="sunset-time">{{weatherService.highlight()?.sunset ?? 'N/A'}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-container-todays-highlight-card">
+                    <div class="right-container-todays-highlight-card-title">💧 Humidity</div>
+                    <div class="wind-status-value">{{weatherService.highlight()?.humidityPercent ?? 'N/A'}} <sup class="unit" *ngIf="weatherService.highlight()?.humidityPercent !== null">%</sup></div>
+                    <div class="status-indicator" *ngIf="weatherService.highlight()?.humidityPercent !== null">
+                        {{getHumidityStatus(weatherService.highlight()?.humidityPercent || 0)}}
+                    </div>
+                </div>
+                <div class="right-container-todays-highlight-card">
+                    <div class="right-container-todays-highlight-card-title">👁️ Visibility</div>
+                    <div class="wind-status-value">{{weatherService.highlight()?.visibilityKm ?? 'N/A'}} <span class="unit" *ngIf="weatherService.highlight()?.visibilityKm !== null">km</span></div>
+                    <div class="status-indicator" *ngIf="weatherService.highlight()?.visibilityKm !== null">
+                        {{getVisibilityStatus(weatherService.highlight()?.visibilityKm || 0)}}
+                    </div>
+                </div>
+                <div class="right-container-todays-highlight-card">
+                    <div class="right-container-todays-highlight-card-title">🌬️ Air Quality</div>
+                    <div class="wind-status-value">{{weatherService.highlight()?.airQualityIndex ?? 'N/A'}}</div>
+                    <div class="status-indicator" *ngIf="weatherService.highlight()?.airQualityIndex !== null">
+                        {{getAirQualityStatus(weatherService.highlight()?.airQualityIndex || 0)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
