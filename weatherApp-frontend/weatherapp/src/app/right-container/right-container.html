@@ -13,10 +13,6 @@
     (click)="onWeekClick()">
     Week
   </div>
-  <div 
-    class="underline" 
-    [ngClass]="{ 'underline-today': activeTab === 'today', 'underline-week': activeTab === 'week' }">
-  </div>
 </div>
         <div class="nav-bar-metric">
             <div class="celsius"(click)="onCelsiusClick()" [class.celsius-active]="weatherService.unitCelsius()">°C</div>

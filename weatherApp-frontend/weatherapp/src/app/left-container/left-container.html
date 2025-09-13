@@ -7,7 +7,7 @@
     <div class="left-container-data-box">
         <div class="left-container-temp-data" *ngIf="weatherService.current(); else loadingBlock">
             <div class="left-container-temp-img"><img [src]="weatherService.current()!.iconUrl" alt="WeatherImage"></div>
-            <div class="left-container-temp-value">{{weatherService.unitCelsius() ? weatherService.current()!.temperatureC : weatherService.toFahrenheit(weatherService.current()!.temperatureC) }}<sup>{{weatherService.unitCelsius() ? "°C" : "°F" }}</sup></div>
+            <div class="left-container-temp-value">{{weatherService.unitCelsius() ? weatherService.current()!.temperatureC : weatherService.toFahrenheit(weatherService.current()!.temperatureC) }}{{weatherService.unitCelsius() ? "°C" : "°F" }}</div>
             <div class="left-container-day-time">{{weatherService.current()!.day }}<span>, {{weatherService.current()!.time }}</span></div>
             <div class="left-container-day-time" style="color:#9a9a9a; font-size: 13px;">{{weatherService.current()!.date}}</div>
             <div class="left-container-location-header">
