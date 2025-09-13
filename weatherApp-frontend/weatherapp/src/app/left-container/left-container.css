@@ -1,4 +1,4 @@
-.left-container {
+ .left-container {
   height: 100vh;
   width: 100%;
   display: flex;
@@ -10,7 +10,7 @@
   transition: background 0.3s ease;
 }
 
-/* CSS for left container nav bar */
+
 
 .left-container-nav-bar {
   height: 80px;
@@ -95,8 +95,6 @@
     color: white;
     border-color: var(--accent-color);
 }
-/* ======================================================================================== */
-/* CSS for left container data */
 
 .left-container-data-box {
   flex: 1;
@@ -107,7 +105,7 @@
   overflow: hidden;
 }
 
-/* Temperature Data: Image, Value and Day-Time */
+
 .left-container-temp-data{
   display: flex;
   flex-direction: column;
@@ -164,7 +162,7 @@
   font-weight: 400;
 }
 
-/* Location Header Styles */
+
 .left-container-location-header {
   margin: 6px 0;
   text-align: center;
@@ -202,7 +200,7 @@
 
 .skeleton-hero{ margin-top: 12px; }
 
-/* Temperature Details: Summary Phrase, Rain Value, Location Image and Location Details */
+
 .left-container-other-details {
   display: flex;
   flex-direction: column;
@@ -274,4 +272,4 @@
   color: #ffffff;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
   z-index: 1;
-}
+} 

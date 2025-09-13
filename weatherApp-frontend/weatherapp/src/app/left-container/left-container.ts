@@ -11,7 +11,7 @@ import { WeatherService } from '../services/weather.service';
   selector: 'app-left-container',
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './left-container.html',
-  styleUrl: './left-container.css'
+  styleUrls: ['./left-container.css']
 })
 export class LeftContainer {
   // variables for font awesome icons

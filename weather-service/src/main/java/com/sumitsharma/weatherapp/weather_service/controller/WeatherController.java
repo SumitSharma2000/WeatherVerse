@@ -10,7 +10,6 @@ import com.sumitsharma.weatherapp.weather_service.model.WeatherData;
 import com.sumitsharma.weatherapp.weather_service.service.WeatherService;
 
 @RestController
-@CrossOrigin("*")
 public class WeatherController {
 
     @Autowired

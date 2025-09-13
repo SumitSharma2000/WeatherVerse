@@ -12,11 +12,11 @@ import { WeatherService } from '../services/weather.service';
   selector: 'app-right-container',
   imports: [CommonModule, FontAwesomeModule],
   templateUrl: './right-container.html',
-  styleUrl: './right-container.css'
+  styleUrls: ['./right-container.css'] 
 })
 export class RightContainer implements OnInit {
   constructor(
-    public weatherService: WeatherService, 
+    public weatherService: WeatherService,
   ){};
 
   //fa icons for tumbs up/down and smile/frown

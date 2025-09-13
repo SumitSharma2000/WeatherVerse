@@ -1,38 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ApiService {
-  constructor(private http: HttpClient) {}
+  private readonly baseUrl = environment.apiBaseUrl;
 
-  // ✅ Generic GET request
-  get<T>(url: string, params?: Record<string, any>) {
+  constructor(private readonly http: HttpClient) {}
+
+  get<T>(endpoint: string, params?: Record<string, string | number | boolean>): Observable<T> {
     let httpParams = new HttpParams();
     if (params) {
-      Object.keys(params).forEach(key => {
-        if (params[key] !== undefined && params[key] !== null) {
-          httpParams = httpParams.set(key, params[key]);
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          httpParams = httpParams.set(key, value.toString());
         }
       });
     }
-
-    return this.http.get<T>(`${environment.apiBaseUrl}${url}`, { params: httpParams });
+    return this.http.get<T>(`${this.baseUrl}${endpoint}`, { params: httpParams });
   }
 
-  // ✅ Generic POST request
-  post<T>(url: string, body: any, params?: Record<string, any>) {
+  post<T>(endpoint: string, body: any, params?: Record<string, string | number | boolean>): Observable<T> {
     let httpParams = new HttpParams();
     if (params) {
-      Object.keys(params).forEach(key => {
-        if (params[key] !== undefined && params[key] !== null) {
-          httpParams = httpParams.set(key, params[key]);
+      Object.entries(params).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          httpParams = httpParams.set(key, value.toString());
         }
       });
     }
-
-    return this.http.post<T>(`${environment.apiBaseUrl}${url}`, body, { params: httpParams });
+    return this.http.post<T>(`${this.baseUrl}${endpoint}`, body, { params: httpParams });
   }
 }

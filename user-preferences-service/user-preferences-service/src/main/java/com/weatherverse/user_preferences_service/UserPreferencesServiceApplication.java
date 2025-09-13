@@ -11,14 +11,5 @@ public class UserPreferencesServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(UserPreferencesServiceApplication.class, args);
 	}
-
 }
 
-@RestController
-class PrefsController {
-    @GetMapping("/")
-    public String root() { return "ok"; }
-
-    @GetMapping("/api/prefs/health")
-    public String health() { return "ok"; }
-}
