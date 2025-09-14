@@ -15,6 +15,11 @@ public class WeatherController {
     @Autowired
     private WeatherService weatherService;
 
+     @GetMapping("/health")
+    public String health() {
+        return "ok";
+    }
+
     /** ✅ Current weather endpoint */
     @GetMapping("/api/weather/current")
     public WeatherData getCurrentWeather(
