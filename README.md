@@ -29,12 +29,13 @@
 
 ---
 
----
-
-## 🚀 Setup Instructions
+## Screenshots
+<img width="1919" height="930" alt="image" src="https://github.com/user-attachments/assets/aa46000c-60e6-4bd4-ad0c-d8eda796293a" />
 
 ### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/SumitSharma2000/weatherverse.git
 cd weatherverse
+
+
