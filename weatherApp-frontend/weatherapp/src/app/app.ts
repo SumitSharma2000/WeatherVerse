@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LeftContainer } from './left-container/left-container';
 import { RightContainer } from './right-container/right-container';
+import { ChatbotWidgetComponent } from './chatbot-widget/chatbot-widget';
 import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, FontAwesomeModule, LeftContainer, RightContainer],
+  imports: [CommonModule, FontAwesomeModule, LeftContainer, RightContainer, ChatbotWidgetComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherVerse AI Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            height: 100vh; display: flex; justify-content: center; align-items: center;
+        }
+        .chat-container {
+            width: 400px; height: 600px; background: white; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: flex; flex-direction: column;
+        }
+        .chat-header {
+            background: #0984e3; color: white; padding: 20px; border-radius: 20px 20px 0 0;
+            text-align: center; font-size: 18px; font-weight: bold;
+        }
+        .chat-messages {
+            flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px;
+        }
+        .message {
+            max-width: 80%; padding: 12px 16px; border-radius: 18px; word-wrap: break-word;
+        }
+        .user-message {
+            background: #74b9ff; color: white; align-self: flex-end; border-bottom-right-radius: 5px;
+        }
+        .bot-message {
+            background: #f1f3f4; color: #333; align-self: flex-start; border-bottom-left-radius: 5px;
+        }
+        .chat-input {
+            display: flex; padding: 20px; border-top: 1px solid #eee;
+        }
+        .chat-input input {
+            flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px;
+            outline: none; font-size: 14px;
+        }
+        .chat-input button {
+            margin-left: 10px; padding: 12px 20px; background: #0984e3; color: white;
+            border: none; border-radius: 25px; cursor: pointer; font-weight: bold;
+        }
+        .chat-input button:hover { background: #0770c4; }
+        .typing { opacity: 0.7; font-style: italic; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            🌦️ WeatherVerse AI Assistant
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                नमस्ते! मैं आपका weather assistant हूं। 🌤️<br>
+                पूछिए: "कल Mumbai में बारिश होगी क्या?" या "Running के लिए best time suggest करो"
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="messageInput" placeholder="अपना सवाल यहां लिखें..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">भेजें</button>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+
+        function addMessage(message, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.innerHTML = message;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message bot-message typing';
+            typingDiv.innerHTML = 'Typing...';
+            typingDiv.id = 'typing';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('typing');
+            if (typing) typing.remove();
+        }
+
+        async function sendMessage() {
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, true);
+            messageInput.value = '';
+            showTyping();
+
+            try {
+                const response = await fetch('/api/chat/message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                const data = await response.json();
+                removeTyping();
+                addMessage(data.response, false);
+            } catch (error) {
+                removeTyping();
+                addMessage('Sorry, कुछ technical problem है। कुछ देर बाद try करें।', false);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>

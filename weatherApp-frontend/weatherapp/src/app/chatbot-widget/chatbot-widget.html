@@ -1,0 +1,35 @@
+<!-- Floating Chat Icon -->
+<div class="chat-icon" (click)="toggleChat()" [class.active]="isOpen">
+  <span>🤖</span>
+</div>
+
+<!-- Chat Window -->
+<div class="chat-window" [class.open]="isOpen">
+  <div class="chat-header">
+    <span>🌦️ Weather Assistant</span>
+    <div class="header-buttons">
+      <button class="lang-btn" (click)="toggleLanguage()">{{language === 'hi' ? 'EN' : 'हि'}}</button>
+      <button class="close-btn" (click)="toggleChat()">×</button>
+    </div>
+  </div>
+  
+  <div class="chat-messages">
+    <div *ngFor="let message of messages" 
+         class="message" 
+         [class.user-message]="message.isUser"
+         [class.bot-message]="!message.isUser">
+      {{message.text}}
+    </div>
+    <div *ngIf="isTyping" class="message bot-message typing">
+      Typing...
+    </div>
+  </div>
+  
+  <div class="chat-input">
+    <input #messageInput
+           (keypress)="onKeyPress($event, messageInput)"
+           [placeholder]="language === 'hi' ? 'Weather के बारे में पूछें...' : 'Ask about weather...'"
+           type="text">
+    <button (click)="sendMessage(messageInput)">{{language === 'hi' ? 'भेजें' : 'Send'}}</button>
+  </div>
+</div>
